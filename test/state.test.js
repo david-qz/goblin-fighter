@@ -27,16 +27,10 @@ test('Initial state', (expect) => {
 });
 
 test('addGoblin()', expect => {
-    addGoblin({
-        hp: 99,
-        name: 'Boss',
-    });
+    addGoblin('Boss');
     const lastGoblin = state.goblins[state.goblins.length - 1];
 
-    expect.deepEqual(lastGoblin, {
-        hp: 99,
-        name: 'Boss',
-    });
+    expect.equal(lastGoblin.name, 'Boss');
 });
 
 test('updateGoblin()', expect => {

@@ -21,7 +21,9 @@ initialize();
 export default state;
 
 // export dispatch functions that modify state
-export function addGoblin(goblin) {
+export function addGoblin(name) {
+    const goblin = getRandomGoblin(name);
+    if (name) goblin.name = name;
     state.goblins.push(goblin);
 }
 
