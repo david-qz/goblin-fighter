@@ -36,8 +36,8 @@ export function updateGoblin(goblin) {
 }
 
 // See above comment for why this exists.
-export function updatePlayer(player) {
-    state.player = player;
+export function updateCharacter(character) {
+    state.character = character;
 }
 
 export function addMessage(message) {

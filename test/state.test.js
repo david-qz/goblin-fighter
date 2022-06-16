@@ -2,7 +2,7 @@ import state, {
     initialize,
     addGoblin,
     updateGoblin,
-    updatePlayer,
+    updateCharacter,
     addMessage,
 } from '../state.js';
 
@@ -47,10 +47,10 @@ test('updateGoblin()', expect => {
     expect.equal(state.goblins[0].hp, 5);
 });
 
-test('updatePlayer()', expect => {
+test('updateCharacter()', expect => {
     const character = state.character;
     character.hp = 3;
-    updatePlayer(character);
+    updateCharacter(character);
 
     expect.equal(state.character.hp, 3);
 });
