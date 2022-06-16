@@ -12,18 +12,23 @@ QUnit.module('state', { beforeEach: initialize });
 const test = QUnit.test;
 
 test('Initial state', (expect) => {
-    expect.deepEqual(state.character, {
-        hp: 10,
-        goblinsDefeated: 0,
-    });
+    expect.deepEqual(
+        state.character,
+        {
+            hp: 10,
+            goblinsDefeated: 0,
+            defeated: false,
+        },
+        'Character is initially well-formed.'
+    );
 
-    expect.equal(state.goblins.length, 2);
+    expect.equal(state.goblins.length, 2, 'Two goblins are spawned.');
     for (const goblin of state.goblins) {
-        expect.equal(typeof goblin.name, 'string');
-        expect.equal(goblin.hp, 10);
+        expect.equal(typeof goblin.name, 'string', 'Goblin name is string.');
+        expect.ok(goblin.hp > 0, 'Goblin is alive.');
     }
 
-    expect.deepEqual(state.log, []);
+    expect.deepEqual(state.log, [], 'Log is empty.');
 });
 
 test('addGoblin()', expect => {
