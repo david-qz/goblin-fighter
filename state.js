@@ -8,6 +8,9 @@ export function initialize() {
     state.character = {
         hp: 10,
         goblinsDefeated: 0,
+        get defeated() {
+            return this.hp <= 0;
+        },
     };
     state.goblins = [
         getRandomGoblin(),
@@ -55,5 +58,8 @@ function getRandomGoblin() {
     return {
         hp: 10,
         name: getRandom(names),
+        get defeated() {
+            return this.hp <= 0;
+        },
     };
 }
