@@ -120,9 +120,10 @@ img {
 /* Combat Log */
 
 .combat-log {
+    font-size: 0.8em;
     position: absolute;
-    bottom: 5%;
-    left: 5%;
+    bottom: 2%;
+    left: 2%;
 }
 
 .combat-log li::before {
