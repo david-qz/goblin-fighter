@@ -13,19 +13,51 @@
     <link rel="stylesheet" href="styles/reset.css" />
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/home.css" />
-    <title>Web MVC UI</title>
+    <title>Goblin Fighter</title>
 </head>
 
 <body>
-    <header>
-        <img src="assets/html_css_js.png">
-        <h1>Web MVC UI</h1>
-    </header>
+    <main>
 
-    <main></main>
+        <div class="combat-log">
+            <ul>
+                <li>You attacked Bob and missed.</li>
+                <li>Bob attacked you for 10 points of damage.</li>
+                <li>You died.</li>
+            </ul>
+        </div>
 
-    <footer>&copy;2022 Aspiring Software Developer</footer>
+        <div class="goblin-namer">
+            <form>
+                <input name="name" placeholder="Name a goblin">
+            </form>
+        </div>
 
+        <div class="character">
+            <img src="assets/hero.png">
+            <span class="hp">10</span>
+            <span class="score">0</span>
+        </div>
+
+        <div class="goblin-army">
+            <div class="goblin">
+                <span class="name-tag">Bob</span>
+                <img src="assets/goblin.png">
+                <span class="hp">10</span>
+            </div>
+            <div class="goblin">
+                <span class="name-tag">Bob</span>
+                <img src="assets/goblin.png">
+                <span class="hp">10</span>
+            </div>
+            <div class="goblin">
+                <span class="name-tag">Bob</span>
+                <img src="assets/goblin.png">
+                <span class="hp">10</span>
+            </div>
+        </div>
+
+    </main>
     <script type="module" src="app.js"></script>
 </body>
 

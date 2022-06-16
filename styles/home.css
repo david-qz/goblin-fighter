@@ -1,1 +1,142 @@
 /* CSS for home page (index.html) */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+    --responsive-font-size: 4.0vh;
+}
+
+body {
+    font-family: serif;
+    padding: 0;
+    height: 100vh;
+    background-color: rgb(49, 49, 49);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(255, 255, 255);
+    font-size: var(--responsive-font-size);
+}
+
+img {
+    image-rendering: pixelated;
+}
+
+@media (min-aspect-ratio: 16 / 9) {
+    main {
+        height: 100vh;
+        width: 176vh;
+    }
+}
+
+@media (max-aspect-ratio: 4 / 3) {
+    main {
+        height: 75vw;
+        width: 100vw;
+        font-size: 3.0vw; /* This needs to be (--responsive-font-size * 3 / 4)vw
+                             in order for the handoff between aspect-ratio modes
+                             to be smooth. Can't use calc because I need to transpose
+                             a vh value into vw :( */
+    }
+}
+
+/* Character */
+
+.character {
+    position: absolute;
+    top: 35%;
+    left: 25%;
+    height: 30%;
+}
+
+.character img {
+    height: 100%;
+}
+
+.hp {
+    position: absolute;
+    bottom: -5%;
+    left: -20%;
+}
+
+.hp::after {
+    content: ' hp';
+}
+
+.score {
+    position: absolute;
+    bottom: -5%;
+    right: -20%;
+}
+
+.score::after {
+    content: ' pts';
+}
+
+/* Goblins */
+
+.goblin-army {
+    position: absolute;
+    width: 20%;
+    height: 70%;
+    bottom: 5%;
+    right: 10%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 10%;
+    justify-items: center;
+    align-items: center;
+}
+
+.goblin {
+    position: relative;
+    height: 100%;
+    font-size: 0.6em;
+}
+
+.goblin img {
+    height: 90%;
+}
+
+.name-tag {
+    position: absolute;
+    top: -15%;
+    left: -20%;
+}
+
+/* Combat Log */
+
+.combat-log {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+}
+
+.combat-log li::before {
+    content: "> ";
+}
+
+/* Goblin Namer */
+
+.goblin-namer {
+    position: absolute;
+    width: 25%;
+    height: 5%;
+    top: 5%;
+    right: 5%;
+}
+
+.goblin-namer * {
+    font-size: 0.85em;
+    font-family: serif;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
