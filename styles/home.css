@@ -58,10 +58,10 @@ img {
     height: 100%;
 }
 
-.hp {
+.character .hp {
     position: absolute;
-    bottom: -5%;
-    left: -20%;
+    bottom: -10%;
+    left: 0;
 }
 
 .hp::after {
@@ -70,8 +70,8 @@ img {
 
 .score {
     position: absolute;
-    bottom: -5%;
-    right: -20%;
+    bottom: -10%;
+    right: 0;
 }
 
 .score::after {
@@ -111,6 +111,12 @@ img {
     left: -20%;
 }
 
+.goblin .hp {
+    position: absolute;
+    bottom: -10%;
+    left: -20%;
+}
+
 /* Combat Log */
 
 .combat-log {
@@ -121,6 +127,19 @@ img {
 
 .combat-log li::before {
     content: "> ";
+}
+
+.combat-log li:nth-last-child(2) {
+    color: rgba(1, 1, 1, 0.85);
+}
+.combat-log li:nth-last-child(3) {
+    color: rgba(1, 1, 1, 0.70);
+}
+.combat-log li:nth-last-child(4) {
+    color: rgba(1, 1, 1, 0.55);
+}
+.combat-log li:nth-last-child(5) {
+    color: rgba(1, 1, 1, 0.40);
 }
 
 /* Goblin Namer */
