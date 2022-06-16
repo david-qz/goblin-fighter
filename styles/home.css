@@ -130,16 +130,16 @@ img {
 }
 
 .combat-log li:nth-last-child(2) {
-    color: rgba(1, 1, 1, 0.85);
+    opacity: 0.85;
 }
 .combat-log li:nth-last-child(3) {
-    color: rgba(1, 1, 1, 0.70);
+    opacity: 0.65;
 }
 .combat-log li:nth-last-child(4) {
-    color: rgba(1, 1, 1, 0.55);
+    opacity: 0.45;
 }
 .combat-log li:nth-last-child(5) {
-    color: rgba(1, 1, 1, 0.40);
+    opacity: 0.25;
 }
 
 /* Goblin Namer */
