@@ -16,28 +16,32 @@ const GoblinArmy = createGoblinArmy(document.querySelector('.goblin-army'), {
         const character = state.character;
         if (goblin.defeated || character.defeated) return;
 
-        const damage = rollDice(3, 4);
-        goblin.hp = Math.max(0, goblin.hp - damage);
-        addMessage(`You attacked ${goblin.name} for ${damage} points of damage.`);
+        // Abusing an IIFE so I can early return but make sure display gets called.
+        // TODO: If this code gets more complicated, break it up and move it into a module.
+        (() => {
+            const damage = rollDice(3, 4);
+            goblin.hp = Math.max(0, goblin.hp - damage);
+            updateGoblin(goblin);
+            addMessage(`You attacked ${goblin.name} for ${damage} points of damage.`);
 
-        const damageTaken = rollDice(2, 2);
-        character.hp = Math.max(0, character.hp - damageTaken);
-        addMessage(`${goblin.name} attacked you for ${damageTaken} points of damage.`);
+            if (goblin.defeated) {
+                character.goblinsDefeated++;
+                const heal = rollDice(2, 2);
+                character.hp += heal;
+                addMessage(`You defeated ${goblin.name} and healed for ${heal} hp.`);
+                return;
+            }
 
-        if (goblin.defeated) {
-            character.goblinsDefeated++;
-            const heal = rollDice(2, 2);
-            character.hp += heal;
-            addMessage(`You defeated ${goblin.name} and healed for ${heal} hp.`);
-        }
+            if (character.defeated) {
+                addMessage('You been defeated. GAME OVER!');
+                return;
+            }
 
-        if (character.defeated) {
-            addMessage('You been defeated. GAME OVER!');
-        }
-
-        updateGoblin(goblin);
-        updateCharacter(character);
-
+            const damageTaken = rollDice(2, 2);
+            character.hp = Math.max(0, character.hp - damageTaken);
+            updateCharacter(character);
+            addMessage(`${goblin.name} attacked you for ${damageTaken} points of damage.`);
+        })();
         display();
     },
 });
