@@ -13,17 +13,31 @@ import state, { addGoblin, updateGoblin, updateCharacter, addMessage } from './s
 const Character = createCharacter(document.querySelector('.character'));
 const GoblinArmy = createGoblinArmy(document.querySelector('.goblin-army'), {
     handleCombatRound(goblin) {
-        // TODO: Implement actual game logic
-        const damage = Math.ceil(Math.random() * 3);
-        const damageTaken = Math.ceil(Math.random() * 2);
+        const character = state.character;
+        if (goblin.defeated || character.defeated) return;
 
-        goblin.hp -= damage;
-        state.character.hp -= damageTaken;
-        updateGoblin(goblin);
-        updateCharacter(state.character);
-
+        const damage = rollDice(3, 4);
+        goblin.hp = Math.max(0, goblin.hp - damage);
         addMessage(`You attacked ${goblin.name} for ${damage} points of damage.`);
+
+        const damageTaken = rollDice(2, 2);
+        character.hp = Math.max(0, character.hp - damageTaken);
         addMessage(`${goblin.name} attacked you for ${damageTaken} points of damage.`);
+
+        if (goblin.defeated) {
+            character.goblinsDefeated++;
+            const heal = rollDice(2, 2);
+            character.hp += heal;
+            addMessage(`You defeated ${goblin.name} and healed for ${heal} hp.`);
+        }
+
+        if (character.defeated) {
+            addMessage('You been defeated. GAME OVER!');
+        }
+
+        updateGoblin(goblin);
+        updateCharacter(character);
+
         display();
     },
 });
@@ -45,3 +59,14 @@ function display() {
 
 // Call display on page load
 display();
+
+// Game Logic Helpers
+
+// return a dice roll
+function rollDice(rolls, die) {
+    let total = 0;
+    for (let i = 0; i < rolls; i++) {
+        total += Math.ceil(Math.random() * die);
+    }
+    return total;
+}

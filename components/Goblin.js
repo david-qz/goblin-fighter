@@ -7,7 +7,7 @@ export default function createGoblin(goblin) {
     nameSpan.textContent = goblin.name;
 
     const img = document.createElement('img');
-    img.src = './assets/goblin.png';
+    img.src = goblin.defeated ? './assets/goblin-defeated.png' : './assets/goblin.png';
 
     const hpSpan = document.createElement('span');
     hpSpan.classList.add('hp');
