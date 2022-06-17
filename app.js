@@ -1,4 +1,5 @@
 // import services and utilities
+import { doCombatRound } from './game.js';
 
 // import component creators
 import createCharacter from './components/Character.js';
@@ -8,10 +9,6 @@ import createGoblinNamer from './components/GoblinNamer.js';
 
 // import state and dispatch functions
 import state, {
-    addGoblin,
-    anyoneLeftStanding,
-    updateGoblin,
-    updateCharacter,
     addMessage,
     enqueueName,
 } from './state.js';
@@ -20,57 +17,18 @@ import state, {
 const Character = createCharacter(document.querySelector('.character'));
 const GoblinArmy = createGoblinArmy(document.querySelector('.goblin-army'), {
     handleCombatRound(goblin) {
-        const character = state.character;
-        if (goblin.defeated || character.defeated) return;
-
-        // Abusing an IIFE so I can early return but make sure display gets called.
-        // TODO: If this code gets more complicated, break it up and move it into a module.
-        (() => {
-            const damage = rollDice(3, 4);
-            goblin.hp = Math.max(0, goblin.hp - damage);
-            updateGoblin(goblin);
-            addMessage(`You attacked ${goblin.name} for ${damage} points of damage.`);
-
-            if (goblin.defeated) {
-                character.goblinsDefeated++;
-                const heal = rollDice(2, 2);
-                character.hp += heal;
-                addMessage(`You defeated ${goblin.name} and healed for ${heal} hp.`);
-                if (!anyoneLeftStanding()) {
-                    const goblin = addGoblin();
-                    if (goblin) {
-                        addMessage(`${goblin.name} arrives on the battlefield.`);
-                    }
-                }
-                return;
-            }
-
-            const damageTaken = rollDice(2, 3);
-            character.hp = Math.max(0, character.hp - damageTaken);
-            updateCharacter(character);
-            addMessage(`${goblin.name} attacked you for ${damageTaken} points of damage.`);
-
-            if (character.defeated) {
-                addMessage('You been defeated. GAME OVER!');
-                return;
-            }
-
-            if (rollDice(1, 4) === 1) {
-                const goblin = addGoblin();
-                if (goblin) {
-                    addMessage(`${goblin.name} arrives on the battlefield.`);
-                }
-            }
-        })();
+        doCombatRound(state.character, goblin);
         display();
     },
 });
 const CombatLog = createCombatLog(document.querySelector('.combat-log'));
 const GoblinNamer = createGoblinNamer(document.querySelector('.goblin-namer'), {
     handleEnqueueName(name) {
-        enqueueName(name);
-        addMessage(`You hear ${name} approaching in the distance.`);
-        display();
+        if (!state.character.defeated) {
+            enqueueName(name);
+            addMessage(`You hear ${name} approaching in the distance.`);
+            display();
+        }
     }
 });
 
@@ -84,14 +42,3 @@ function display() {
 
 // Call display on page load
 display();
-
-// Game Logic Helpers
-
-// return a dice roll
-function rollDice(rolls, die) {
-    let total = 0;
-    for (let i = 0; i < rolls; i++) {
-        total += Math.ceil(Math.random() * die);
-    }
-    return total;
-}
