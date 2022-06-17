@@ -39,7 +39,7 @@ export function addGoblin() {
     const pickedIndex = getRandomItem(openIndices);
 
     if (pickedIndex) {
-        const newGoblin = getRandomGoblin(name);
+        const newGoblin = getRandomGoblin();
         state.goblins[pickedIndex] = newGoblin;
         return newGoblin;
     }
