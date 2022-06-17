@@ -93,21 +93,17 @@ img {
 .goblin-army {
     position: absolute;
     width: 20%;
-    height: 70%;
+    height: 80%;
     bottom: 5%;
     right: 10%;
 
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    gap: 10%;
-    justify-items: center;
-    align-items: center;
+    grid-template-columns: 40% 40%;
+    grid-template-rows: 15% 15% 15% 15%;
+    gap: calc(40% / 3) 20%;
 }
 
 .goblin {
-    position: relative;
-    height: 100%;
     font-size: 0.6em;
     filter: var(--drop-shadow-filter);
 }
@@ -118,6 +114,8 @@ img {
 
 .goblin img {
     height: 90%;
+    width: auto;
+    object-fit: contain;
 }
 
 .name-tag {
