@@ -17,6 +17,7 @@ export function initialize() {
         getRandomGoblin(),
     ];
     state.log = [];
+    state.nameQueue = [];
 }
 // call initialize
 initialize();
@@ -47,6 +48,14 @@ export function updateCharacter(character) {
 
 export function addMessage(message) {
     state.log.push(message);
+}
+
+export function enqueueName(name) {
+    state.nameQueue.splice(0, 0, name);
+}
+
+export function dequeueName() {
+    return state.nameQueue.pop();
 }
 
 // helper functions

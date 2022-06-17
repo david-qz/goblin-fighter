@@ -4,6 +4,8 @@ import state, {
     updateGoblin,
     updateCharacter,
     addMessage,
+    enqueueName,
+    dequeueName,
 } from '../state.js';
 
 // make sure state is at known starting point
@@ -64,4 +66,16 @@ test('addMessage()', expect => {
         'Jerry attacked you for 10 points of damage.',
         'You died.',
     ]);
+});
+
+test('name queue', expect => {
+    expect.equal(dequeueName(), undefined, 'Empty queue gives undefined.');
+
+    enqueueName('Foo');
+    enqueueName('Bar');
+    enqueueName('Baz');
+
+    const names = [dequeueName(), dequeueName(), dequeueName()];
+
+    expect.deepEqual(names, ['Foo', 'Bar', 'Baz'], 'Queue is FIFO');
 });
