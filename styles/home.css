@@ -112,6 +112,10 @@ img {
     filter: var(--drop-shadow-filter);
 }
 
+.goblin.defeated img {
+    filter: grayscale(50%);
+}
+
 .goblin img {
     height: 90%;
 }
