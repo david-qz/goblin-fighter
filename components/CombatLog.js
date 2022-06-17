@@ -2,7 +2,7 @@ export default function createCombatLog(root) {
     const ul = root.querySelector('ul');
 
     return ({ log }) => {
-        const latest = log.slice(-5);
+        const latest = log.slice(-6);
 
         ul.innerHTML = '';
 
