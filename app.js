@@ -7,7 +7,7 @@ import createCombatLog from './components/CombatLog.js';
 import createGoblinNamer from './components/GoblinNamer.js';
 
 // import state and dispatch functions
-import state, { addGoblin, updateGoblin, updateCharacter, addMessage } from './state.js';
+import state, { addGoblin, updateGoblin, updateCharacter, addMessage, enqueueName } from './state.js';
 
 // Create each component:
 const Character = createCharacter(document.querySelector('.character'));
@@ -47,8 +47,9 @@ const GoblinArmy = createGoblinArmy(document.querySelector('.goblin-army'), {
 });
 const CombatLog = createCombatLog(document.querySelector('.combat-log'));
 const GoblinNamer = createGoblinNamer(document.querySelector('.goblin-namer'), {
-    handleAddGoblin(name) {
-        addGoblin(name);
+    handleEnqueueName(name) {
+        enqueueName(name);
+        addMessage(`You hear ${name} approaching in the distance.`);
         display();
     }
 });
