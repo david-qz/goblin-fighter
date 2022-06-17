@@ -42,3 +42,6 @@ function display() {
 
 // Call display on page load
 display();
+
+// Show the page
+document.querySelector('main').classList.remove('hidden');
