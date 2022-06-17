@@ -7,7 +7,14 @@ import createCombatLog from './components/CombatLog.js';
 import createGoblinNamer from './components/GoblinNamer.js';
 
 // import state and dispatch functions
-import state, { addGoblin, updateGoblin, updateCharacter, addMessage, enqueueName } from './state.js';
+import state, {
+    addGoblin,
+    anyoneLeftStanding,
+    updateGoblin,
+    updateCharacter,
+    addMessage,
+    enqueueName,
+} from './state.js';
 
 // Create each component:
 const Character = createCharacter(document.querySelector('.character'));
@@ -29,18 +36,31 @@ const GoblinArmy = createGoblinArmy(document.querySelector('.goblin-army'), {
                 const heal = rollDice(2, 2);
                 character.hp += heal;
                 addMessage(`You defeated ${goblin.name} and healed for ${heal} hp.`);
+                if (!anyoneLeftStanding()) {
+                    const goblin = addGoblin();
+                    if (goblin) {
+                        addMessage(`${goblin.name} arrives on the battlefield.`);
+                    }
+                }
                 return;
             }
+
+            const damageTaken = rollDice(2, 3);
+            character.hp = Math.max(0, character.hp - damageTaken);
+            updateCharacter(character);
+            addMessage(`${goblin.name} attacked you for ${damageTaken} points of damage.`);
 
             if (character.defeated) {
                 addMessage('You been defeated. GAME OVER!');
                 return;
             }
 
-            const damageTaken = rollDice(2, 2);
-            character.hp = Math.max(0, character.hp - damageTaken);
-            updateCharacter(character);
-            addMessage(`${goblin.name} attacked you for ${damageTaken} points of damage.`);
+            if (rollDice(1, 4) === 1) {
+                const goblin = addGoblin();
+                if (goblin) {
+                    addMessage(`${goblin.name} arrives on the battlefield.`);
+                }
+            }
         })();
         display();
     },

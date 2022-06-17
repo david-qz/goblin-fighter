@@ -1,4 +1,8 @@
 import { names } from './rng-tables.js';
+import { getRandomItem } from './utils.js';
+
+export const GOBLIN_SLOTS = 8;
+const indices = '01234567';
 
 // set state to an empty object
 const state = {};
@@ -12,12 +16,13 @@ export function initialize() {
             return this.hp <= 0;
         },
     };
-    state.goblins = [
-        getRandomGoblin(),
-        getRandomGoblin(),
-    ];
+    state.goblins = [];
     state.log = [];
     state.nameQueue = [];
+
+    // Add two goblins initially
+    addGoblin();
+    addGoblin();
 }
 // call initialize
 initialize();
@@ -25,10 +30,32 @@ initialize();
 export default state;
 
 // export dispatch functions that modify state
-export function addGoblin(name) {
-    const goblin = getRandomGoblin(name);
-    if (name) goblin.name = name;
-    state.goblins.push(goblin);
+export function addGoblin() {
+    const openIndices = [...indices].filter(i => {
+        const goblin = state.goblins[i];
+        return !goblin || goblin.defeated;
+    });
+
+    const pickedIndex = getRandomItem(openIndices);
+
+    if (pickedIndex) {
+        const newGoblin = getRandomGoblin(name);
+        state.goblins[pickedIndex] = newGoblin;
+        return newGoblin;
+    }
+    return null;
+}
+
+export function anyoneLeftStanding() {
+    return livingGoblins() !== 0;
+}
+
+export function livingGoblins() {
+    let count = 0;
+    for (const goblin of state.goblins) {
+        if (goblin && !goblin.defeated) count++;
+    }
+    return count;
 }
 
 // This function is a no-op but I'm keeping it here to mimic the
@@ -58,15 +85,11 @@ export function dequeueName() {
     return state.nameQueue.pop();
 }
 
-// helper functions
-function getRandom(array) {
-    return array[Math.floor(Math.random() * array.length)];
-}
-
+// Helpers
 function getRandomGoblin() {
     return {
         hp: 10,
-        name: getRandom(names),
+        name: dequeueName() || getRandomItem(names),
         get defeated() {
             return this.hp <= 0;
         },
