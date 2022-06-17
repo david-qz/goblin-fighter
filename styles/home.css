@@ -147,10 +147,10 @@ img {
 
 .goblin-namer {
     position: absolute;
-    width: 25%;
+    width: 20%;
     height: 5%;
-    top: 5%;
-    right: 5%;
+    top: 1%;
+    right: 1%;
 }
 
 .goblin-namer * {
