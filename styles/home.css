@@ -60,8 +60,8 @@ img {
 
 .character .hp {
     position: absolute;
-    bottom: -10%;
-    left: 0;
+    bottom: -15%;
+    left: 10%;
 }
 
 .hp::after {
@@ -70,8 +70,8 @@ img {
 
 .score {
     position: absolute;
-    bottom: -10%;
-    right: 0;
+    bottom: -15%;
+    right: 10%;
 }
 
 .score::after {
@@ -107,7 +107,7 @@ img {
 
 .name-tag {
     position: absolute;
-    top: -15%;
+    top: -25%;
     left: -20%;
 }
 
