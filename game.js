@@ -32,7 +32,7 @@ export function doCombatRound(character, goblin) {
     }
 
     if (character.defeated) {
-        addMessage('You been defeated. GAME OVER!');
+        addMessage("You've been defeated. GAME OVER!");
     } else {
         // Spawn some goblins if the battlefield is empty or a dice roll succeeds
         if (!anyoneLeftStanding() || rollDice(1, 5) === 1) {
