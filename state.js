@@ -1,5 +1,5 @@
 import { names } from './rng-tables.js';
-import { getRandomItem } from './utils.js';
+import { getRandomItem, rollDice } from './utils.js';
 
 export const GOBLIN_SLOTS = 8;
 const indices = '01234567';
@@ -87,8 +87,10 @@ export function dequeueName() {
 
 // Helpers
 function getRandomGoblin() {
+    const bonusHealth = Math.floor(state.character.goblinsDefeated / 10);
+
     return {
-        hp: 10,
+        hp: 5 + rollDice(1, 5) + bonusHealth,
         name: dequeueName() || getRandomItem(names),
         get defeated() {
             return this.hp <= 0;
